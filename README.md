@@ -15,6 +15,20 @@ Include this role in your `requirements.yml`.
 - src: https://github.com/gsa/datagov-deploy-solr.git
 ```
 
+The role depends on having Java installed. We recommend including the role
+`geerlingguy.java` on your solr hosts.
+
+Example playbook:
+
+```yaml
+---
+- name: Solr
+  hosts: solr
+  roles:
+    - geerlingguy.java
+    - gsa.datagov-deploy-solr
+```
+
 
 ### Variables
 
@@ -28,6 +42,11 @@ Include this role in your `requirements.yml`.
 
 ## Development
 
+_Note: when cloning the repo, the directory name must match the role name
+defined in the molecule playbooks, e.g. `datagov-deploy-solr`._
+
+    $ git clone https://github.com/GSA/datagov-deploy-solr.git
+
 Install dependencies.
 
     $ make setup
@@ -35,3 +54,18 @@ Install dependencies.
 Run the tests.
 
     $ make test
+
+To run the tests in debug mode:
+
+    $ molecule --debug test
+
+And you might find it helpful to only run the dependency/playbook step.
+
+    $ molelecule converge
+
+You can log into the machine to inspect it, too.
+
+    $ molecule login
+
+For more about molecule, read the [molecule
+docs](https://molecule.readthedocs.io/en/latest/index.html).
