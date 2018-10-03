@@ -1,7 +1,8 @@
+---
 version: 2
 jobs:
   build:
-    machine: yes
+    machine: true
     steps:
       - checkout
       - run: make setup
