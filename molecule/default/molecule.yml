@@ -20,6 +20,12 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  inventory:
+    group_vars:
+      catalog-web:
+        app_type: catalog
+      inventory-web:
+        app_type: inventory
 scenario:
   name: default
 verifier:
