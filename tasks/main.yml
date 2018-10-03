@@ -63,14 +63,14 @@
     src: solrconfig-master.xml.j2
     dest: /home/solr/{{app_type}}/conf/solrconfig.xml
     force: true
-  when: inventory_hostname == groups["solr"][0]
+  when: not is_solr_replica
 
-- name: Copy solrconfig.xml on slave solr
+- name: Copy solrconfig.xml on replica solr
   template:
-    src: solrconfig-slave.xml.j2
+    src: solrconfig-replica.xml.j2
     dest: /home/solr/{{app_type}}/conf/solrconfig.xml
     force: true
-  when: inventory_hostname != groups["solr"][0]
+  when: is_solr_replica
 
 - name: Setup solr permissions
   file:
@@ -80,6 +80,12 @@
     recurse: true
   notify: restart tomcat service
 #  shell: "chown -R tomcat6 /home/solr"
+
+- name: start and enable tomcat service
+  service:
+    name: tomcat6
+    state: started
+    enabled: true
 
 - name: Add the new core
   shell: "curl 'http://127.0.0.1:8080/solr/admin/cores?\
@@ -91,9 +97,3 @@
   notify: restart tomcat service
   tags:
     - skip_ansible_lint
-
-- name: enable tomcat service
-  service:
-    name: tomcat6
-    state: started
-    enabled: true
