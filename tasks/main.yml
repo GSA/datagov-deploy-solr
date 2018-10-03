@@ -32,3 +32,14 @@
     mode: 0644
   when: is_solr_replica
   notify: restart solr
+
+- name: Add the new core
+  shell: "curl 'http://127.0.0.1:{{ solr_port }}/solr/admin/cores?\
+          action=CREATE&name={{app_type}}&\
+          instanceDir={{ solr_home_dir }}/{{app_type}}&\
+          config={{ solr_home_dir }}/{{app_type}}/conf/solrconfig.xml&\
+          schema={{ solr_home_dir }}/{{app_type}}/conf/schema.xml&\
+          dataDir={{ solr_home_dir }}/{{app_type}}'"
+  notify: restart solr
+  tags:
+    - skip_ansible_lint
