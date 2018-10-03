@@ -6,8 +6,16 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr
+  - name: solr-catalog
     image: ubuntu:trusty
+    groups:
+      - solr
+      - catalog-web
+  - name: solr-inventory
+    image: ubuntu:trusty
+    groups:
+      - solr
+      - inventory-web
 provisioner:
   name: ansible
   lint:
