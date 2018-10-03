@@ -63,6 +63,11 @@ And you might find it helpful to only run the dependency/playbook step.
 
     $ molelecule converge
 
+You can pass arguments to ansible-playbook in order to pickup at a specific
+step.
+
+    $ molecule converge -- --start-at-task='datagov-deploy-solr : copy solr schema file'
+
 You can log into the machine to inspect it, too.
 
     $ molecule login
