@@ -1,4 +1,5 @@
 ---
-is_solr_replica: false # Assume master node configuration by default
+is_solr_replica: false  # Assume master node configuration by default
+solr_home_dir: /home/solr
 solr_master_server: 127.0.0.1
 solr_url: https://archive.apache.org/dist/lucene/solr/4.2.1/solr-4.2.1.tgz

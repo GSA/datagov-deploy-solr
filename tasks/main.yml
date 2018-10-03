@@ -1,99 +1,34 @@
 ---
-- name: Update repositories cache and install tomcat6
-  apt: name=tomcat6 update_cache=yes
-
-- name: Download solr 4.2.1
-  get_url:
-    url: "{{ solr_url }}"
-    timeout: 40
-    dest: ~/
-#  command: creates=~/solr-4.2.1.tgz chdir=~/ wget -T 40  {{ solr_url }}
-
-- name: Unpack solr
-  shell: >-
-    cd ~/ &&
-    tar -zxvf solr-4.2.1.tgz &&
-    cd solr-4.2.1/dist &&
-    cp solr-4.2.1.war /var/lib/tomcat6/webapps/solr.war
-  tags:
-    - skip_ansible_lint
-
-- name: Change solr.war ownership to tomcat6
-  file: path=/var/lib/tomcat6/webapps/solr.war owner=tomcat6 group=tomcat6
-
-- name: Create Solr webapp dir
-  file:
-    path: /var/lib/tomcat6/webapps/solr/WEB-INF
-    state: directory
-    mode: 0755
-    owner: tomcat6
-    group: tomcat6
+- name: Remove tomcat6
+  apt: name=tomcat6 state=absent
 
 - name: Create Solr home dir
-  file: path=/home/solr state=directory mode=0755 owner=tomcat6 group=tomcat6
-
-- name: Copy solr files to home dir
-  shell: cp -R -n ~/solr-4.2.1/example/solr/* /home/solr
-  tags:
-    - skip_ansible_lint
-
-- name: remove old /home/solr/ckan if exists
-  file: path=/home/solr/{{app_type}} state=absent
-
-- name: copy sample collection1 files to home dir
-  shell: cp -R ~/solr-4.2.1/example/solr/collection1 /home/solr/{{app_type}}
-  tags:
-    - skip_ansible_lint
-
-- name: copy files
-  action: copy src={{item}} dest=/{{item}} mode=0644 force=yes
-  with_items:
-    - var/lib/tomcat6/webapps/solr/WEB-INF/web.xml
-    - var/lib/tomcat6/conf/logging.properties
+  file: >-
+    path={{ solr_home_dir }}/{{ app_type }}/conf
+    state=directory mode=0755 owner=solr group=solr
 
 - name: copy solr schema file
   action: >-
     copy src={{app_type}}/home/solr/ckan/conf/schema.xml
-    dest=/home/solr/{{app_type}}/conf/schema.xml
+    dest={{ solr_home_dir }}/{{ app_type }}/conf/schema.xml
     mode=0644
     force=yes
+  notify: restart solr
 
 - name: Copy solrconfig.xml on master solr
   template:
     src: solrconfig-master.xml.j2
-    dest: /home/solr/{{app_type}}/conf/solrconfig.xml
+    dest: "{{ solr_home_dir }}/{{ app_type }}/conf/solrconfig.xml"
     force: true
+    mode: 0644
   when: not is_solr_replica
+  notify: restart solr
 
 - name: Copy solrconfig.xml on replica solr
   template:
     src: solrconfig-replica.xml.j2
-    dest: /home/solr/{{app_type}}/conf/solrconfig.xml
+    dest: "{{ solr_home_dir }}/{{ app_type }}/conf/solrconfig.xml"
     force: true
+    mode: 0644
   when: is_solr_replica
-
-- name: Setup solr permissions
-  file:
-    path: /home/solr
-    state: directory
-    owner: tomcat6
-    recurse: true
-  notify: restart tomcat service
-#  shell: "chown -R tomcat6 /home/solr"
-
-- name: start and enable tomcat service
-  service:
-    name: tomcat6
-    state: started
-    enabled: true
-
-- name: Add the new core
-  shell: "curl 'http://127.0.0.1:8080/solr/admin/cores?\
-          action=CREATE&name={{app_type}}&\
-          instanceDir=/home/solr/{{app_type}}&\
-          config=/home/solr/{{app_type}}/conf/solrconfig.xml&\
-          schema=/home/solr/{{app_type}}/conf/schema.xml&\
-          dataDir=/home/solr/{{app_type}}'"
-  notify: restart tomcat service
-  tags:
-    - skip_ansible_lint
+  notify: restart solr

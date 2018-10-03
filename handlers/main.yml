@@ -1,7 +1,3 @@
 ---
-
-- name: restart tomcat service
-  action: service name=tomcat6 state=restarted
-
-- name: stop tomcat service
-  action: service name=tomcat6 state=stopped
+- name: restart solr
+  service: name=solr state=restarted

@@ -13,4 +13,9 @@ galaxy_info:
 
   galaxy_tags: []
 
-dependencies: []
+dependencies:
+  - role: geerlingguy.solr
+    solr_version: '4.2.1'
+    solr_home: "{{ solr_home_dir }}"
+    solr_cores:
+      - "{{ app_type }}"

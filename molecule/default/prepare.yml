@@ -3,8 +3,3 @@
   hosts: all
   roles:
     - geerlingguy.java
-  tasks:
-    - name: ensure packages exist
-      apt: name={{ item }} state=present
-      with_items:
-        - curl
