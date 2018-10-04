@@ -15,3 +15,6 @@ galaxy_info:
 
 dependencies:
   - role: geerlingguy.solr
+    solr_version: '4.2.1'
+    solr_cores:
+      - "{{ app_type }}"

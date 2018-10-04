@@ -32,6 +32,21 @@ Example playbook:
 
 ### Variables
 
+See [geerlingguy.solr](https://github.com/geerlingguy/ansible-role-solr/blob/4.3.0/README.md) for
+additional variables.
+
+**`app_type`** string (required)
+
+The application type using solr. This should be either `inventory` or `catalog`
+and is used to name the solr collection/core.
+
+**`solr_home`** string
+
+The directory to use for solr's data files.
+
+**`solr_port`** string
+
+The port number for solr to listen.
 
 
 ## Prerequisites for development
