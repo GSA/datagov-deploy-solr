@@ -34,13 +34,13 @@
   notify: restart solr
 
 # For solr <5, we have to create the core via API
-#- name: Add the new core
-#  shell: "curl 'http://127.0.0.1:{{ solr_port }}/solr/admin/cores?\
-#          action=CREATE&name={{app_type}}&\
-#          instanceDir={{ solr_home }}/{{app_type}}&\
-#          config={{ solr_home }}/{{app_type}}/conf/solrconfig.xml&\
-#          schema={{ solr_home }}/{{app_type}}/conf/schema.xml&\
-#          dataDir={{ solr_home }}/{{app_type}}'"
-#  notify: restart solr
-#  tags:
-#    - skip_ansible_lint
+# - name: Add the new core
+#   shell: "curl 'http://127.0.0.1:{{ solr_port }}/solr/admin/cores?\
+#           action=CREATE&name={{app_type}}&\
+#           instanceDir={{ solr_home }}/{{app_type}}&\
+#           config={{ solr_home }}/{{app_type}}/conf/solrconfig.xml&\
+#           schema={{ solr_home }}/{{app_type}}/conf/schema.xml&\
+#           dataDir={{ solr_home }}/{{app_type}}'"
+#   notify: restart solr
+#   tags:
+#     - skip_ansible_lint
