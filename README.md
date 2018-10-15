@@ -48,6 +48,14 @@ The directory to use for solr's data files.
 
 The port number for solr to listen.
 
+**`is_solr_replica`** boolean
+
+Configures the host as a Solr replica.
+
+**`solr_master_server`** string
+
+IP or hostname of the Solr master this replica should replicate from.
+
 
 ## Prerequisites for development
 
