@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- data.gov: edits for CKAN marked below.
+     https://github.com/ckan/ckan/wiki/Install-and-use-Solr-5-in-GNU-Linux-for-CKAN
+-->
+
+
 <!--
  Licensed to the Apache Software Foundation (ASF) under one or more
  contributor license agreements.  See the NOTICE file distributed with
@@ -137,7 +142,10 @@
 
   <!-- To disable dynamic schema REST APIs, use the following for <schemaFactory>:
   
+  -->
+  <!-- data.gov: enable classic index schema and disable managed schema -->
        <schemaFactory class="ClassicIndexSchemaFactory"/>
+  <!--
 
        When ManagedIndexSchemaFactory is specified instead, Solr will load the schema from
        the resource named in 'managedSchemaResourceName', rather than from schema.xml.
@@ -152,10 +160,13 @@
        modification REST API calls will be allowed; otherwise, error responses will be
        sent back for these requests. 
   -->
+
+  <!-- data.gov: disable managed schema
   <schemaFactory class="ManagedIndexSchemaFactory">
     <bool name="mutable">true</bool>
     <str name="managedSchemaResourceName">managed-schema</str>
   </schemaFactory>
+  -->
 
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing
@@ -1367,6 +1378,7 @@
         <str>yyyy-MM-dd</str>
       </arr>
     </processor>
+    <!-- data.gov: disable schema fields update processor
     <processor class="solr.AddSchemaFieldsUpdateProcessorFactory">
       <str name="defaultFieldType">strings</str>
       <lst name="typeMapping">
@@ -1387,6 +1399,7 @@
         <str name="fieldType">tdoubles</str>
       </lst>
     </processor>
+    -->
 
 
     <processor class="org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessorFactory">
