@@ -1415,12 +1415,11 @@
       </lst>
     </processor>
 
+    <!-- data.gov stateless script update is not used by data.gov and causes issues with our config. Disable it.
     <processor class="solr.StatelessScriptUpdateProcessorFactory">
       <str name="script">update-script.js</str>
-      <!--<lst name="params">-->
-        <!--<str name="config_param">example config parameter</str>-->
-      <!--</lst>-->
     </processor>
+    -->
 
     <processor class="solr.RunUpdateProcessorFactory"/>
   </updateRequestProcessorChain>
