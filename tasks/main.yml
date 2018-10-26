@@ -1,6 +1,7 @@
 ---
-- name: Remove tomcat6
-  apt: name=tomcat6 state=absent
+# TODO once solr is upgraded and re-indexed, tomcat can be removed
+# - name: Remove tomcat6
+#   apt: name=tomcat6 state=absent
 
 - name: Create Solr core conf dir
   file: >-
