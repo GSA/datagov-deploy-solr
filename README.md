@@ -35,10 +35,10 @@ Example playbook:
 See [geerlingguy.solr](https://github.com/geerlingguy/ansible-role-solr/blob/4.3.0/README.md) for
 additional variables.
 
-**`app_type`** string (required)
+**`solr_cores`** arary[string] (required)
 
-The application type using solr. This should be either `inventory` or `catalog`
-and is used to name the solr collection/core.
+The solr cores to create. This should be either `inventory` or `catalog`, or
+both. The solr config should be created in this role.
 
 **`solr_home`** string
 

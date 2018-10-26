@@ -20,7 +20,9 @@ provisioner:
   inventory:
     group_vars:
       all:
-        app_type: catalog
+        solr_cores:
+          - catalog
+          - inventory
 scenario:
   name: default
 verifier:

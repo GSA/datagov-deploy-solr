@@ -22,7 +22,8 @@ provisioner:
   inventory:
     group_vars:
       all:
-        app_type: catalog
+        solr_cores:
+          - catalog
         # the docker containers don't actually talk to
         # each other, so this is just to confirm the
         # configuration.

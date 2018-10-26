@@ -1,2 +1,0 @@
----
-solr_core_dir: "{{ solr_home }}/data/{{ app_type }}"
