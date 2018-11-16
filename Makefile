@@ -1,7 +1,16 @@
-.PHONY: setup test
+SCENARIOS := \
+  default \
+  replication
+
+SCENARIO_TARGETS := $(patsubst %,test-%, $(SCENARIOS))
 
 setup:
 	pip install -r requirements.txt
 
-test:
-	molecule test
+test: $(SCENARIO_TARGETS)
+
+test-%:
+	molecule test -s $*
+
+
+.PHONY: setup test

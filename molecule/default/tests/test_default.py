@@ -5,9 +5,7 @@ import testinfra.utils.ansible_runner
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
-solr_port = 8983
 solr_core = 'catalog'
-solr_home = '/var/solr'
 
 
 def test_solr_service(host):
@@ -24,12 +22,14 @@ def test_solr_port(host):
 
 
 def test_solr_schema(host):
+    solr_home = host.ansible.get_variables().get('solr_home')
     schema = host.file('%s/data/%s/conf/schema.xml' % (solr_home, solr_core))
 
     assert schema.exists
 
 
 def test_solrconfig(host):
+    solr_home = host.ansible.get_variables().get('solr_home')
     config = host.file('%s/data/%s/conf/solrconfig.xml'
                        % (solr_home, solr_core))
 
@@ -39,6 +39,8 @@ def test_solrconfig(host):
 
 
 def test_solr_core(host):
+    solr_port = host.ansible.get_variables().get('solr_port')
+
     host.ansible(
         'uri',
         'url=http://localhost:%s/solr/%s/get' % (solr_port, solr_core),
