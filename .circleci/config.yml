@@ -34,9 +34,15 @@ jobs:
     environment:
       SCENARIO: replication
 
+  test-solr4:
+    <<: *test-molecule-job
+    environment:
+      SCENARIO: solr4
+
 workflows:
   version: 2
   commit:
     jobs:
       - test-default
       - test-replication
+      - test-solr4

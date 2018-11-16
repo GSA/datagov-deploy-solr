@@ -1,0 +1,33 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/resources/requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: solr-catalog
+    image: ubuntu:trusty
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../resources/prepare.yml
+    converge: ../resources/playbook.yml
+  inventory:
+    group_vars:
+      all:
+        solr_version: '4.10.4'
+        solr_log_file_path: /var/log/solr/solr.log
+        solr_cores:
+          - catalog
+          - inventory
+scenario:
+  name: solr4
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
