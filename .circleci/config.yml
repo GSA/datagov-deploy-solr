@@ -22,7 +22,6 @@ test-molecule-job: &test-molecule-job
         make test-$SCENARIO
 
 
-
 version: 2
 jobs:
   test-default:
