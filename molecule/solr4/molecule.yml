@@ -8,7 +8,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr-catalog
+  - name: solr-solr4
     image: ubuntu:trusty
 provisioner:
   name: ansible
