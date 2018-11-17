@@ -1,7 +1,7 @@
 ---
 - name: set facts
   set_fact:
-    is_solr4: "solr_version.split('.')[0] == '4'"
+    is_solr4: "{{ solr_version.split('.')[0] == '4' }}"
 
 # TODO once solr is upgraded and re-indexed, tomcat can be removed
 # - name: Remove tomcat6
