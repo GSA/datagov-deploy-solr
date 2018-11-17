@@ -17,6 +17,7 @@
     line: solr.log=/var/log/solr
     state: present
   notify: restart solr
+  when: not is_solr4
 
 - name: Create Solr core conf dir
   file: >-
