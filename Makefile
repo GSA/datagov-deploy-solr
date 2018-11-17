@@ -1,7 +1,7 @@
 SCENARIOS := \
   default \
   replication \
-  solr
+  solr4
 
 SCENARIO_TARGETS := $(patsubst %,test-%, $(SCENARIOS))
 
