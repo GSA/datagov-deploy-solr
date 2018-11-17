@@ -8,8 +8,6 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr-master
-    image: ubuntu:trusty
   - name: solr-replica
     image: ubuntu:trusty
 provisioner:
