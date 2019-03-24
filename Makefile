@@ -6,12 +6,12 @@ SCENARIOS := \
 SCENARIO_TARGETS := $(patsubst %,test-%, $(SCENARIOS))
 
 setup:
-	pip install -r requirements.txt
+	pipenv install --dev
 
 test: $(SCENARIO_TARGETS)
 
 test-%:
-	molecule test -s $*
+	pipenv run molecule test -s $*
 
 
 .PHONY: setup test

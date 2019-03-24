@@ -1,25 +1,25 @@
 ---
 test-molecule-job: &test-molecule-job
-  machine: true
+  docker:
+    - image: circleci/python:3.6
+  environment:
+    PIPENV_VENV_IN_PROJECT: 1
   # dir name must match molecule role
   working_directory: ~/datagov-deploy-solr
   steps:
     - checkout
     - restore_cache:
         keys:
-          - v1-pip-{{ checksum "requirements.txt" }}
+          - v1-pip-{{ checksum "Pipfile.lock" }}
           - v1-pip-
     - run: |
-        virtualenv venv
-        . venv/bin/activate
+        pip install --user --upgrade pipenv
         make setup
     - save_cache:
-        key: v1-pip-{{ checksum "requirements.txt" }}
+        key: v1-pip-{{ checksum "Pipfile.lock" }}
         paths:
-          - venv
-    - run: |
-        . venv/bin/activate
-        make test-$SCENARIO
+          - .venv
+    - run: make test-$SCENARIO
 
 
 version: 2
