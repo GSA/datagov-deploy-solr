@@ -8,6 +8,7 @@ test-molecule-job: &test-molecule-job
   working_directory: ~/datagov-deploy-solr
   steps:
     - checkout
+    - setup_remote_docker
     - restore_cache:
         keys:
           - v1-pip-{{ checksum "Pipfile.lock" }}
