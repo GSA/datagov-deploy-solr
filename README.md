@@ -60,7 +60,8 @@ IP or hostname of the Solr master this replica should replicate from.
 ## Prerequisites for development
 
 - [Docker](https://www.docker.com/)
-- [Python](https://www.python.org/) 2.7 or 3.5+ in a virtualenv
+- [Python](https://www.python.org/) 3.6
+- [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 
 
 ## Development
@@ -80,20 +81,22 @@ Run the tests.
 
 To run the tests in debug mode:
 
-    $ molecule --debug test
+    $ pipenv run molecule --debug test
 
 And you might find it helpful to only run the dependency/playbook step.
 
-    $ molelecule converge
+    $ pipenv run molelecule converge
 
 You can pass arguments to ansible-playbook in order to pickup at a specific
 step.
 
-    $ molecule converge -- --start-at-task='datagov-deploy-solr : copy solr schema file'
+    $ pipenv run molecule converge -- --start-at-task='datagov-deploy-solr : copy solr schema file'
 
 You can log into the machine to inspect it, too.
 
-    $ molecule login
+    $ pipenv run molecule login
 
 For more about molecule, read the [molecule
-docs](https://molecule.readthedocs.io/en/latest/index.html).
+docs](https://molecule.readthedocs.io/en/latest/index.html). For quick tips about
+developing with molecule, see our
+[wiki](https://github.com/GSA/datagov-deploy/wiki/Developing-Ansible-roles-with-Molecule).
