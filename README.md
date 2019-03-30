@@ -25,9 +25,13 @@ Example playbook:
 - name: Solr
   hosts: solr
   roles:
-    - geerlingguy.java
-    - gsa.datagov-deploy-solr
+    - role: geerlingguy.java
+      java_packages:
+        - openjdk-8-jdk
+    - role: gsa.datagov-deploy-solr
 ```
+
+_Note: for trusty, use `openjdk-7-jdk`._
 
 
 ### Variables
