@@ -8,8 +8,10 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr-replica
+  - name: solr-replica-trusty
     image: ubuntu:trusty
+  - name: solr-replica-bionic
+    image: ubuntu:bionic
 provisioner:
   name: ansible
   lint:
