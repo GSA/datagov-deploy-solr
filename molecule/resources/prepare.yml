@@ -6,3 +6,6 @@
   tasks:
     - name: install curl for core creation on solr 4
       apt: name=curl state=present
+
+    - name: install net-tools to for infratest Socket module
+      apt: name=net-tools state=present
