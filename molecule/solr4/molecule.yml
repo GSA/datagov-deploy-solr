@@ -8,10 +8,6 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr-solr4-trusty
-    image: ubuntu:trusty
-    groups:
-      - trusty
   - name: solr-solr4-bionic
     image: ubuntu:bionic
     groups:
@@ -31,9 +27,6 @@ provisioner:
         solr_cores:
           - catalog
           - inventory
-      trusty:
-        java_packages:
-          - openjdk-7-jdk
       bionic:
         java_packages:
           - openjdk-8-jdk
