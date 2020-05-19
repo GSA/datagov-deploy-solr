@@ -89,7 +89,7 @@ To run the tests in debug mode:
 
 And you might find it helpful to only run the dependency/playbook step.
 
-    $ pipenv run molelecule converge
+    $ pipenv run molecule converge
 
 You can pass arguments to ansible-playbook in order to pickup at a specific
 step.
