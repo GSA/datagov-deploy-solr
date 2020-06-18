@@ -8,10 +8,6 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: solr-replica-trusty
-    image: ubuntu:trusty
-    groups:
-      - trusty
   - name: solr-replica-bionic
     image: ubuntu:bionic
     groups:
@@ -33,9 +29,6 @@ provisioner:
         # each other, so this is just to confirm the
         # configuration.
         solr_master_server: solr-master
-      trusty:
-        java_packages:
-          - openjdk-7-jdk
       bionic:
         java_packages:
           - openjdk-8-jdk
