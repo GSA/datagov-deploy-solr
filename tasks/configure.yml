@@ -22,6 +22,15 @@
   with_items: "{{ solr_cores }}"
   notify: restart solr
 
+- name: Copy stopwords.txt file
+  action: >-
+    copy src={{ item }}/home/solr/ckan/conf/stopwords.txt
+    dest={{ solr_home }}/data/{{ item }}/conf/stopwords.txt
+    mode=0644
+    force=yes
+  with_items: "{{ solr_cores }}"
+  notify: restart solr
+  
 - name: Copy solrconfig.xml on master solr
   template:
     src: solrconfig-master.xml.j2
