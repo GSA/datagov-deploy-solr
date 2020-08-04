@@ -30,7 +30,7 @@
     force=yes
   with_items: "{{ solr_cores }}"
   notify: restart solr
-  
+
 - name: Copy solrconfig.xml on master solr
   template:
     src: solrconfig-master.xml.j2
