@@ -44,3 +44,24 @@ def test_solr_core(host):
         'url=http://localhost:%s/solr/%s/get' % (solr_port, solr_core),
         check=False
         )
+
+# these tests only apply to catalog-next for the moment, so we
+# override solr_core
+
+
+def test_solr_stopwords_file(host):
+    solr_core = 'catalog-next'
+    stopwords_path = '%s/data/%s/conf/stopwords.txt' % (solr_home, solr_core)
+    stopwords = host.file(stopwords_path)
+
+    assert stopwords.exists
+
+
+def test_solr_stopwords_in_schema(host):
+    solr_core = 'catalog-next'
+    schema_path = '%s/data/%s/conf/schema.xml' % (solr_home, solr_core)
+    schema = host.file(schema_path)
+
+    assert schema.exists
+    assert schema.contains('<filter class="solr.StopFilterFactory"')
+    assert schema.contains('<filter class="solr.SuggestStopFilterFactory"')
