@@ -35,6 +35,7 @@ provisioner:
           - catalog
           - catalog-next
           - inventory
+          - inventory-next
       trusty:
         java_packages:
           - openjdk-7-jdk
