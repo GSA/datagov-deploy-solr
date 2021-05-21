@@ -26,7 +26,7 @@ provisioner:
   inventory:
     group_vars:
       all:
-        solr_version: '5.5.5'
+        solr_version: '6.6.6'
         solr_cores:
           - catalog
         # the docker containers don't actually talk to
