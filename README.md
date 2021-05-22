@@ -31,8 +31,6 @@ Example playbook:
     - role: gsa.datagov-deploy-solr
 ```
 
-_Note: for trusty, use `openjdk-7-jdk`._
-
 
 ### Variables
 
